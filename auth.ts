@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcrypt';
 import NextAuth from 'next-auth';
-import credentials from 'next-auth/providers/credentials';
+import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { User } from './app/lib/definitions';
 import { authConfig } from './auth.config';
@@ -19,7 +19,7 @@ async function getUser(email: string): Promise<User | undefined> {
 export const { auth, signIn, signOut } = NextAuth({
 	...authConfig,
 	providers: [
-		credentials({
+		Credentials({
 			async authorize(credentials) {
 				const parsedCredentials = z
 					.object({ email: z.string().email(), password: z.string().min(6) })
